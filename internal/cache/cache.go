@@ -410,14 +410,7 @@ func (c *Cache) generateUIDForUser(ctx context.Context, username string) (uid ui
 
 	logger.Debug(ctx, "generate user id for user %q", username)
 
-	// compute uid for user
-	var offset uint32 = 100000
-	uid = 1
-	for _, c := range username {
-		uid = (uid * uint32(c)) % math.MaxUint32
-	}
-	uid = uid%(math.MaxUint32-offset) + offset
-
+	uid = 1002
 	// check collision or increment
 	for {
 		if exists, err := uidOrGidExists(c.db, uid, username); err != nil {
