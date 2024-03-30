@@ -98,7 +98,7 @@ func Authenticate(ctx context.Context, username, password, conf string, opts ...
 
 	// No network: try validate user from cache.
 	if errors.Is(errAAD, aad.ErrNoNetwork) {
-		if err := c.CanAuthenticate(ctx, usernameDomain, password); err != nil {
+		if err := c.CanAuthenticate(ctx, username, password); err != nil {
 			if errors.Is(err, cache.ErrOfflineCredentialsExpired) {
 				Info(ctx, i18n.G("Machine is offline and cached credentials expired. Please try again when the machine is online."))
 			}
