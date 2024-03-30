@@ -78,10 +78,8 @@ func Authenticate(ctx context.Context, username, password, conf string, opts ...
 		opt(&o)
 	}
 
-	usernameDomain := username + cfg.LoginDomain
-
 	// Authentication. Note that the errors are AAD errors for now, but we can decorelate them in the future.
-	errAAD := o.auth.Authenticate(ctx, cfg, usernameDomain, password)
+	errAAD := o.auth.Authenticate(ctx, cfg, username, password)
 	if errors.Is(errAAD, aad.ErrDeny) {
 		return ErrPamAuth
 	} else if errAAD != nil && !errors.Is(errAAD, aad.ErrNoNetwork) {
