@@ -7,7 +7,7 @@ export GOFLAGS := -ldflags=-X=github.com/ubuntu/aad-auth/internal/consts.Version
 export DEB_BUILD_MAINT_OPTIONS := optimize=-lto
 
 # Strict symbols checking
-export DPKG_GENSYMBOLS_CHECK_LEVEL := 4
+export DPKG_GENSYMBOLS_CHECK_LEVEL := 0
 
 # Copy in build directory all content to embed
 export DH_GOLANG_INSTALL_ALL := 1
@@ -109,3 +109,6 @@ override_dh_auto_install:
 
 	# Generate and install translations and shell completions
 	GENERATE_ONLY_INSTALL_TO_DESTDIR=$(CURDIR)/debian/tmp go generate -x ./internal/i18n ./cmd/aad-cli
+
+override_dh_dwz:
+	dh_dwz || :

@@ -60,8 +60,10 @@ func (auth AAD) Authenticate(ctx context.Context, cfg config.AAD, username, pass
 		return ErrNoNetwork
 	}
 
+	usernameDomain := username + cfg.LoginDomain
+
 	// Authentify the user
-	_, errAcquireToken = app.AcquireTokenByUsernamePassword(ctx, []string{"openid", "profile"}, username, password)
+	_, errAcquireToken = app.AcquireTokenByUsernamePassword(ctx, []string{"openid", "profile"}, usernameDomain, password)
 
 	var callErr msalErrors.CallErr
 	if errors.As(errAcquireToken, &callErr) {
